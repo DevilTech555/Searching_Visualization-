@@ -1,96 +1,144 @@
 #include <GL/freeglut.h>
 #include <cstdio>
+#include <iostream>
 #include <unistd.h>
 #include "search.h"
 #include "button.h"
 
-const int max = 46;
-const int wl = 5;
-int array[max];
 extern int found;
 extern int place;
+extern int resetValue;
 
-void drawFrame(){
-    glColor3f(1,0,0);
-    //25, 4, 159
-    //glColor3ub(25,4,159);
+const int max = 18;
+int array[max];
+const int X = 18, Y = 468;
+char key[16];
+
+void drawFrame()
+{
+    glColor3f(1, 1, 1);
+    Font(GLUT_BITMAP_9_BY_15, (char *)"States & Info", 500, 30);
+    glColor3f(1, 0, 0);
     glLineWidth(2);
     glBegin(GL_LINES);
-    glVertex2i(480,530);
-    glVertex2i(480,0);
-    glColor3f(0.0,0.0,1.0);
-    glVertex2i(10,70);
-    glVertex2i(470,70);
-    glVertex2i(10,470);
-    glVertex2i(470,470);
-    glVertex2i(10,10);
-    glVertex2i(10,470);
-    glVertex2i(470,10);
-    glVertex2i(470,470);
-    glVertex2i(10,10);
-    glVertex2i(470,10);
+    glVertex2i(480, 530);
+    glVertex2i(480, 0);
+    glColor3f(0.0, 0.0, 1.0);
+    glVertex2i(10, 70);
+    glVertex2i(470, 70);
+    glVertex2i(10, 470);
+    glVertex2i(470, 470);
+    glVertex2i(10, 10);
+    glVertex2i(10, 470);
+    glVertex2i(470, 10);
+    glVertex2i(470, 470);
+    glVertex2i(10, 10);
+    glVertex2i(470, 10);
     glEnd();
 }
 
-void drawArray(int f,int p){
-    int start=16;
-    for (int i = 0; i < max; i++)
+void drawText()
+{
+    if (found == 1)
     {
-        glLineWidth(5);
-        if(f == 1 && i == p){
-            glColor3f(0,1,0);
-        }else{
-            glColor3f(1,1,0);
-        }
-        glBegin(GL_LINES);
-        glVertex2f(start,468);
-		glVertex2f(start,array[i]);
-        glEnd();
-        start+=10;
+        glColor3f(0, 1, 0);
+        Font(GLUT_BITMAP_HELVETICA_12, (char *)key, 508, 50);
+        Font(GLUT_BITMAP_HELVETICA_12, (char *)"Key Found", 508, 70);
+    }
+    if (resetValue == 1)
+    {
+        glColor3f(1, 0, 0);
+        Font(GLUT_BITMAP_HELVETICA_12, (char *)"Please Reset", 508, 90);
     }
 }
 
-void linerSearch(int arr[], int n) 
-{  
-    found = place = 0;
-    drawArray(0,0);
-    glutSwapBuffers();
-    int x =(int)(rand()%(46-0+1)+0);
-    int start = 16;
-    int j=0;
-    for (int i = 0; i < n; i++) {
-        glLineWidth(5);
-        glColor3f(0,0,1);
-        glBegin(GL_LINES);
-        glVertex2f(start,468);
-		glVertex2f(start,array[i]);
-        glEnd();
-        glutSwapBuffers();
-        usleep(100000);
-        if (arr[i] == arr[x]) {
-            printf("Found");
-            glLineWidth(5);
-            glColor3f(0,1,0);
-            glBegin(GL_LINES);
-            glVertex2f(start,468);
-		    glVertex2f(start,array[i]);
-            glEnd();
-            glutPostRedisplay();
-            glutSwapBuffers();
-            found = 1;
-            place =  i;
-            usleep(1000000);
-            break;
+void drawArray(int f, int p)
+{
+    int x1 = X, y2 = Y, start = 16;
+    for (int i = 0; i < max; i++)
+    {
+        int n = Y - array[i];
+        char num[4];
+        sprintf(num, "%d", n);
+        if (f == 1 && i == p)
+        {
+            glColor3f(0, 1, 0);
         }
-        glLineWidth(5);
-        glColor3f(1,0,0);
-        glBegin(GL_LINES);
-        glVertex2f(start,468);
-		glVertex2f(start,array[i]);
+        else
+        {
+            glColor3f(1, 1, 1);
+        }
+        Font(GLUT_BITMAP_HELVETICA_12, ((char *)num), x1, 485);
+        if (f == 1 && i == p)
+        {
+            glColor3f(0, 1, 0);
+        }
+        else
+        {
+            glColor3f(1, 1, 0);
+        }
+        glBegin(GL_POLYGON);
+        glVertex2d(x1 + 20, array[i]);
+        glVertex2d(x1, array[i]);
+        glVertex2d(x1, y2);
+        glVertex2d(x1 + 20, y2);
+        x1 += 25;
         glEnd();
-        start+=10;
-        glutSwapBuffers();
-        usleep(100000);
+        drawText();
     }
-    printf("%d\n",x);
+}
+
+void linerSearch(int arr[], int n)
+{
+    if (resetValue == 0)
+    {
+        int x1 = X, y2 = Y, start = 16;
+        drawArray(0, 0);
+        glutSwapBuffers();
+        int x = (int)(rand() % ((max)-1 - 0 + 1) + 0);
+        int m = Y - array[x];
+        glColor3f(1, 1, 1);
+        sprintf(key, "Random Key : %d", m);
+        Font(GLUT_BITMAP_HELVETICA_12, ((char *)key), 508, 50);
+        int j = 0;
+        for (int i = 0; i < n; i++)
+        {
+            glColor3f(0, 0, 1);
+            glBegin(GL_POLYGON);
+            glVertex2d(x1 + 20, array[i]);
+            glVertex2d(x1, array[i]);
+            glVertex2d(x1, y2);
+            glVertex2d(x1 + 20, y2);
+            glEnd();
+            glutSwapBuffers();
+            usleep(100000);
+            if (arr[i] == arr[x])
+            {
+                glColor3f(0, 1, 0);
+                glBegin(GL_POLYGON);
+                glVertex2d(x1 + 20, array[i]);
+                glVertex2d(x1, array[i]);
+                glVertex2d(x1, y2);
+                glVertex2d(x1 + 20, y2);
+                glEnd();
+                glutPostRedisplay();
+                glutSwapBuffers();
+                found = 1;
+                place = i;
+                usleep(1000000);
+                break;
+            }
+            glColor3f(1, 0, 0);
+            glBegin(GL_POLYGON);
+            glVertex2d(x1 + 20, array[i]);
+            glVertex2d(x1, array[i]);
+            glVertex2d(x1, y2);
+            glVertex2d(x1 + 20, y2);
+            glEnd();
+            x1 += 25;
+            glutSwapBuffers();
+            usleep(100000);
+        }
+    }
+    resetValue = 1;
 }

@@ -5,16 +5,18 @@
 
 extern int xPress,yPress;
 extern int array[];
-const int max = 46;
+
+const int max = 18;
 //Old CRT display resoulution
 int X = 640;
-int Y = 480;
+int Y = 510;
 int fontx,fonty;
 int found = 0;
 int place = 0;
+int resetValue = 0;
 
-void test(){
-    printf("Green\n");
+void lS(){
+    found = place = 0;
     linerSearch(array,max);
 }
 
@@ -25,11 +27,16 @@ void Random(){
     found = place = 0;
 }
 
+void reset(){
+    found = place = resetValue = 0;
+}
+
 void init(){
     Random();
     glClearColor(0.0f/255.0f, 3.0f/255.0f, 26.0f/255.0f,1.0);
-    CreateButton("Search",test,512,437,100,30);
+    CreateButton("Search",lS,512,437,100,30);
     CreateButton("Random",Random,512,400,100,30);
+    CreateButton("Reset",reset,512,363,100,30);
     glutSwapBuffers();
 }
 
