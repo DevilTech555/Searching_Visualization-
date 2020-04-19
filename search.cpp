@@ -17,7 +17,23 @@ char key[16];
 void drawFrame()
 {
     glColor3f(1, 1, 1);
-    Font(GLUT_BITMAP_9_BY_15, (char *)"States & Info", 500, 30);
+    Font(GLUT_BITMAP_9_BY_15, (char *)"States & Info", 490, 30);
+    Font(GLUT_BITMAP_9_BY_15, (char *)"Graph Color Code", 490, 140);
+    glColor3f(1,1,0);
+    Font(GLUT_BITMAP_9_BY_15, (char *)"Array Element", 490, 160);
+    glColor3f(0,0,1);
+    Font(GLUT_BITMAP_9_BY_15, (char *)"Key Comparision", 490, 180);
+    glColor3f(1,0,0);
+    Font(GLUT_BITMAP_9_BY_15, (char *)"Key Not Matched", 490, 200);
+    glColor3f(0,1,0);
+    Font(GLUT_BITMAP_9_BY_15, (char *)"Key Matched", 490, 220);
+    glColor3f(1,1,1);
+    Font(GLUT_BITMAP_9_BY_15, (char *)"  Project By : ", 490, 280);
+    Font(GLUT_BITMAP_9_BY_15, (char *)"   Dhanya HM", 490, 300);
+    Font(GLUT_BITMAP_9_BY_15, (char *)"( 1SK18CS408 )", 490, 320);
+    // Font(GLUT_BITMAP_9_BY_15, (char *)"  Project By : ", 490, 280);
+    // Font(GLUT_BITMAP_9_BY_15, (char *)"   Naveen PM", 490, 300);
+    // Font(GLUT_BITMAP_9_BY_15, (char *)"( 1SK18CS413 )", 490, 320);
     glColor3f(1, 0, 0);
     glLineWidth(2);
     glBegin(GL_LINES);
@@ -42,13 +58,13 @@ void drawText()
     if (found == 1)
     {
         glColor3f(0, 1, 0);
-        Font(GLUT_BITMAP_HELVETICA_12, (char *)key, 508, 50);
-        Font(GLUT_BITMAP_HELVETICA_12, (char *)"Key Found", 508, 70);
+        Font(GLUT_BITMAP_9_BY_15, (char *)key, 490, 50);
+        Font(GLUT_BITMAP_9_BY_15, (char *)"Key Found", 490, 70);
     }
     if (resetValue == 1)
     {
         glColor3f(1, 0, 0);
-        Font(GLUT_BITMAP_HELVETICA_12, (char *)"Please Reset", 508, 90);
+        Font(GLUT_BITMAP_9_BY_15, (char *)"Please Reset", 490, 90);
     }
 }
 
@@ -99,7 +115,7 @@ void linerSearch(int arr[], int n)
         int m = Y - array[x];
         glColor3f(1, 1, 1);
         sprintf(key, "Random Key : %d", m);
-        Font(GLUT_BITMAP_HELVETICA_12, ((char *)key), 508, 50);
+        Font(GLUT_BITMAP_9_BY_15, ((char *)key), 490, 50);
         int j = 0;
         for (int i = 0; i < n; i++)
         {

@@ -33,7 +33,8 @@ void reset(){
 
 void init(){
     Random();
-    glClearColor(0.0f/255.0f, 3.0f/255.0f, 26.0f/255.0f,1.0);
+    // glClearColor(0.0f/255.0f, 3.0f/255.0f, 26.0f/255.0f,1.0);
+    glClearColor(0.0f/255.0f, 0.0f/255.0f, 15.0f/255.0f,1.0);
     CreateButton("Search",lS,512,437,100,30);
     CreateButton("Random",Random,512,400,100,30);
     CreateButton("Reset",reset,512,363,100,30);
@@ -63,6 +64,7 @@ void reshape(int x,int y){
     X = x;
     Y = y;
     glViewport(0,0,x,y);
+    glutReshapeWindow(640,510);
 }
 
 void MouseButton(int button,int state,int x, int y)
@@ -90,11 +92,6 @@ void MouseButton(int button,int state,int x, int y)
 	glutPostRedisplay();
 }
 
-void MousePassiveMotion(int x, int y)
-{
-	//printf("passive mouse pos = (%d,%d)\n",x,y);
-}
-
 int main(int argc, char ** argv)
 {
     glutInit(&argc,argv);
@@ -105,7 +102,6 @@ int main(int argc, char ** argv)
     glutDisplayFunc(display);
     glutReshapeFunc(reshape);
     glutMouseFunc(MouseButton);
-    glutPassiveMotionFunc(MousePassiveMotion); 
     init();
     glutMainLoop();
     return 0;
