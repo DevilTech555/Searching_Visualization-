@@ -7,11 +7,12 @@ extern int xPress,yPress;
 extern int array[];
 
 const int max = 18;
-//Old CRT display resoulution
+
 int X = 650;
 int Y = 510;
 int fontx,fonty;
 int found = 0;
+int nfound = 0;
 int place = 0;
 int resetValue = 0;
 
@@ -24,21 +25,19 @@ void Random(){
     for(int r=0;r<max;r++){
         array[r]=(int)(rand()%(460-100+1)+100);
     }
-    found = place = 0;
+    found = place = nfound = 0;
 }
 
 void reset(){
-    found = place = resetValue = 0;
+    found = place = resetValue = nfound = 0;
 }
 
 void init(){
     Random();
-    // glClearColor(0.0f/255.0f, 3.0f/255.0f, 26.0f/255.0f,1.0);
     glClearColor(0.0f/255.0f, 0.0f/255.0f, 15.0f/255.0f,1.0);
     CreateButton("Search",lS,512,290,100,30);
     CreateButton("Random",Random,512,326,100,30);
     CreateButton("Reset",reset,512,362,100,30);
-    glutSwapBuffers();
 }
 
 
@@ -61,10 +60,8 @@ void display(){
 }
 
 void reshape(int x,int y){
-    X = x;
-    Y = y;
-    // glViewport(0,0,x,y);
 	glViewport(0, 0, (GLsizei) x, (GLsizei) y);
+    glutReshapeWindow(X,Y);
 }
 
 

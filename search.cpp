@@ -6,6 +6,7 @@
 #include "button.h"
 
 extern int found;
+extern int nfound;
 extern int place;
 extern int resetValue;
 
@@ -13,6 +14,7 @@ const int max = 18;
 int array[max];
 const int X = 18, Y = 468;
 char key[16];
+int m;
 
 void drawFrame()
 {
@@ -73,6 +75,11 @@ void drawText()
         Font(GLUT_BITMAP_9_BY_15, (char *)key, 490, 50);
         Font(GLUT_BITMAP_9_BY_15, (char *)"Key Found", 490, 70);
     }
+    if(nfound == 1){
+        glColor3f(1, 0, 0);
+        Font(GLUT_BITMAP_9_BY_15, (char *)key, 490, 50);
+        Font(GLUT_BITMAP_9_BY_15, (char *)"Key Not Found", 490, 70);
+    }
     if (resetValue == 1)
     {
         glColor3f(1, 0, 0);
@@ -123,8 +130,9 @@ void linerSearch(int arr[], int n)
         int x1 = X, y2 = Y, start = 16;
         drawArray(0, 0);
         glutSwapBuffers();
-        int x = (int)(rand() % ((max)-1 - 0 + 1) + 0);
-        int m = Y - array[x];
+        std::cout << "Enter number to be Searched : ";
+        std::cin >> m ; 
+        int x = Y-m;
         glColor3f(1, 1, 1);
         sprintf(key, "Random Key : %d", m);
         Font(GLUT_BITMAP_9_BY_15, ((char *)key), 490, 50);
@@ -139,8 +147,8 @@ void linerSearch(int arr[], int n)
             glVertex2d(x1 + 20, y2);
             glEnd();
             glutSwapBuffers();
-            usleep(100000);
-            if (arr[i] == arr[x])
+            usleep(100000); 
+            if (arr[i] == x)
             {
                 glColor3f(0, 1, 0);
                 glBegin(GL_POLYGON);
@@ -152,6 +160,7 @@ void linerSearch(int arr[], int n)
                 glutPostRedisplay();
                 glutSwapBuffers();
                 found = 1;
+                nfound = 0;
                 place = i;
                 usleep(1000000);
                 break;
@@ -164,6 +173,7 @@ void linerSearch(int arr[], int n)
             glVertex2d(x1 + 20, y2);
             glEnd();
             x1 += 25;
+            nfound = 1;
             glutSwapBuffers();
             usleep(100000);
         }
