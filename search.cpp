@@ -30,12 +30,9 @@ void drawFrame()
     glColor3f(0,1,0);
     Font(GLUT_BITMAP_9_BY_15, (char *)"Key Matched", 490, 200);
     glColor3f(1,1,1);
-    Font(GLUT_BITMAP_9_BY_15, (char *)"  Project By : ", 490, 230);
-    Font(GLUT_BITMAP_9_BY_15, (char *)"   Dhanya HM", 490, 250);
-    Font(GLUT_BITMAP_9_BY_15, (char *)"( 1SK18CS408 )", 490, 270);
-    // Font(GLUT_BITMAP_9_BY_15, (char *)"  Project By : ", 490, 280);
-    // Font(GLUT_BITMAP_9_BY_15, (char *)"   Naveen PM", 490, 300);
-    // Font(GLUT_BITMAP_9_BY_15, (char *)"( 1SK18CS413 )", 490, 320);
+    Font(GLUT_BITMAP_9_BY_15, (char *)"  Project By : ", 490, 280);
+    Font(GLUT_BITMAP_9_BY_15, (char *)"   Naveen PM", 490, 300);
+    Font(GLUT_BITMAP_9_BY_15, (char *)"( 1SK18CS413 )", 490, 320);
     Font(GLUT_BITMAP_9_BY_15, (char *)"Keyboard Shortcut", 490, 415);
     Font(GLUT_BITMAP_9_BY_15, (char *)"Spacebar - Search", 490, 435);
     Font(GLUT_BITMAP_9_BY_15, (char *)"r - reset", 490, 453);
